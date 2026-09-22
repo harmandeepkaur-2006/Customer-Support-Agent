@@ -1,5 +1,9 @@
 ResolveAI — AI Customer Support Agent
 
+## Live Demo
+
+[Open Customer Support Agent](https://customer-support-agent-9dw2.onrender.com/)
+
 ResolveAI is a web-based customer support assistant for an e-commerce demo. Customers can chat about orders, shipping, cancellations, returns, refunds, and payments. The website connects to an AI agent in Microsoft Foundry through a FastAPI backend.
 
 Features
