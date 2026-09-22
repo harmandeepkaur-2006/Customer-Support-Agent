@@ -1,0 +1,68 @@
+[
+  {
+    "order_id": "ORD101", "customer_id": "CUS1001", "customer_name": "Rahul Sharma", "marketplace": "DemoMart",
+    "items": [{"sku": "ELEC-WH-101", "name": "Wireless Headphones", "quantity": 1, "price": 2499}],
+    "order_date": "2026-09-19T14:32:00+05:30", "status": "Shipped", "status_message": "Package departed the Delhi sorting hub.",
+    "tracking": {"tracking_id": "DTDC784512963", "carrier": "DTDC", "last_location": "Delhi NCR Hub", "last_updated": "2026-09-21T21:10:00+05:30"},
+    "delivery": {"estimated_date": "2026-09-25", "address_city": "Chandigarh", "delivery_attempts": 0},
+    "payment": {"method": "UPI", "provider": "Google Pay", "masked_upi_id": "rahul***@okaxis", "status": "Paid", "transaction_id": "UPI260919784521", "amount": 2499},
+    "cancellation": {"allowed": false, "reason": "Order has already shipped"},
+    "return": {"eligible": true, "window_days": 7, "eligible_until": "2026-10-02", "status": "Not requested"},
+    "refund": {"status": "Not applicable", "amount": 0, "destination": null, "estimated_days": null}
+  },
+  {
+    "order_id": "ORD102", "customer_id": "CUS1002", "customer_name": "Riya Verma", "marketplace": "DemoMart",
+    "items": [{"sku": "FASH-RS-204", "name": "Running Shoes", "quantity": 1, "size": "UK 6", "price": 1899}],
+    "order_date": "2026-09-17T10:12:00+05:30", "status": "Out for Delivery", "status_message": "The delivery partner is on the way.",
+    "tracking": {"tracking_id": "EKART908176234", "carrier": "Ekart", "last_location": "Mohali Delivery Centre", "last_updated": "2026-09-22T08:15:00+05:30"},
+    "delivery": {"estimated_date": "2026-09-22", "address_city": "Mohali", "delivery_attempts": 0},
+    "payment": {"method": "Cash on Delivery", "provider": null, "masked_upi_id": null, "status": "Pending at delivery", "transaction_id": null, "amount": 1899},
+    "cancellation": {"allowed": false, "reason": "Order is out for delivery"},
+    "return": {"eligible": true, "window_days": 10, "eligible_until": "2026-10-02", "status": "Not requested"},
+    "refund": {"status": "Not applicable", "amount": 0, "destination": null, "estimated_days": null}
+  },
+  {
+    "order_id": "ORD103", "customer_id": "CUS1003", "customer_name": "Aman Singh", "marketplace": "DemoMart",
+    "items": [{"sku": "HOME-BL-330", "name": "Cotton Bedsheet Set", "quantity": 1, "price": 1299}],
+    "order_date": "2026-09-14T18:05:00+05:30", "status": "Delivered", "status_message": "Delivered to the customer.",
+    "tracking": {"tracking_id": "BLUEDART66129045", "carrier": "Blue Dart", "last_location": "Panchkula", "last_updated": "2026-09-19T15:42:00+05:30"},
+    "delivery": {"estimated_date": "2026-09-20", "delivered_date": "2026-09-19T15:42:00+05:30", "address_city": "Panchkula", "delivery_attempts": 1},
+    "payment": {"method": "Credit Card", "provider": "Visa", "masked_card": "**** **** **** 4821", "status": "Paid", "transaction_id": "CARD260914620184", "amount": 1299},
+    "cancellation": {"allowed": false, "reason": "Order is delivered"},
+    "return": {"eligible": true, "window_days": 7, "eligible_until": "2026-09-26", "status": "Not requested"},
+    "refund": {"status": "Not applicable", "amount": 0, "destination": null, "estimated_days": null}
+  },
+  {
+    "order_id": "ORD104", "customer_id": "CUS1004", "customer_name": "Simran Kaur", "marketplace": "DemoMart",
+    "items": [{"sku": "BEAU-SK-401", "name": "Skin Care Combo", "quantity": 1, "price": 1599}],
+    "order_date": "2026-09-12T11:20:00+05:30", "status": "Cancelled", "status_message": "Cancelled before dispatch at the customer's request.",
+    "tracking": {"tracking_id": null, "carrier": null, "last_location": null, "last_updated": "2026-09-12T11:45:00+05:30"},
+    "delivery": {"estimated_date": null, "address_city": "Ludhiana", "delivery_attempts": 0},
+    "payment": {"method": "UPI", "provider": "PhonePe", "masked_upi_id": "simran***@ybl", "status": "Refund initiated", "transaction_id": "UPI260912145092", "amount": 1599},
+    "cancellation": {"allowed": true, "reason": "Cancelled successfully"},
+    "return": {"eligible": false, "window_days": 0, "eligible_until": null, "status": "Not applicable"},
+    "refund": {"status": "Processing", "amount": 1599, "destination": "Original UPI account", "refund_reference": "RFND2609120014", "initiated_date": "2026-09-12", "estimated_days": "2-5 business days"}
+  },
+  {
+    "order_id": "ORD105", "customer_id": "CUS1005", "customer_name": "Neha Gupta", "marketplace": "DemoMart",
+    "items": [{"sku": "ELEC-SW-505", "name": "Smart Watch", "quantity": 1, "price": 3999}],
+    "order_date": "2026-09-08T09:45:00+05:30", "status": "Return Requested", "status_message": "Pickup scheduled after quality-check request approval.",
+    "tracking": {"tracking_id": "DELHIVERY450982176", "carrier": "Delhivery", "last_location": "Delivered", "last_updated": "2026-09-13T13:20:00+05:30"},
+    "delivery": {"estimated_date": "2026-09-14", "delivered_date": "2026-09-13T13:20:00+05:30", "address_city": "Delhi", "delivery_attempts": 1},
+    "payment": {"method": "Debit Card", "provider": "Mastercard", "masked_card": "**** **** **** 7319", "status": "Paid", "transaction_id": "CARD260908450921", "amount": 3999},
+    "cancellation": {"allowed": false, "reason": "Order is delivered"},
+    "return": {"eligible": true, "window_days": 7, "eligible_until": "2026-09-20", "status": "Pickup scheduled", "pickup_date": "2026-09-23", "reason": "Display not turning on"},
+    "refund": {"status": "Waiting for returned item", "amount": 3999, "destination": "Original debit card", "estimated_days": "5-7 business days after pickup"}
+  },
+  {
+    "order_id": "ORD106", "customer_id": "CUS1006", "customer_name": "Karan Mehta", "marketplace": "DemoMart",
+    "items": [{"sku": "BOOK-DSA-606", "name": "Data Structures in Java", "quantity": 1, "price": 799}],
+    "order_date": "2026-09-21T19:05:00+05:30", "status": "Confirmed", "status_message": "Seller has confirmed the order and is preparing it for dispatch.",
+    "tracking": {"tracking_id": null, "carrier": null, "last_location": "Seller facility", "last_updated": "2026-09-21T19:08:00+05:30"},
+    "delivery": {"estimated_date": "2026-09-27", "address_city": "Ambala", "delivery_attempts": 0},
+    "payment": {"method": "Wallet", "provider": "DemoMart Wallet", "status": "Paid", "transaction_id": "WAL260921389001", "amount": 799},
+    "cancellation": {"allowed": true, "reason": null},
+    "return": {"eligible": true, "window_days": 7, "eligible_until": "2026-10-04", "status": "Not requested"},
+    "refund": {"status": "Not applicable", "amount": 0, "destination": null, "estimated_days": null}
+  }
+]
