@@ -1,113 +1,183 @@
-# ResolveAI — Microsoft Foundry Customer Support Website
+ResolveAI — AI Customer Support Agent
 
-ResolveAI is a responsive customer support chat application connected to your Microsoft Foundry agent.
-The architecture separates concerns:
-- **Backend (Laptop A)** holds all Microsoft Foundry credentials in `.env`, communicates with Microsoft Foundry over REST, and serves the API and web UI.
-- **Frontend (Laptop B / Browser)** accesses the application over the local network (Wi-Fi) without needing any Azure credentials, `az login`, Azure CLI, or API keys.
+ResolveAI is a web-based customer support assistant for an e-commerce demo. Customers can chat about orders, shipping, cancellations, returns, refunds, and payments. The website connects to an AI agent in Microsoft Foundry through a FastAPI backend.
 
----
+Features
 
-## Architecture Overview
+Responsive chat interface with suggested support questions.
 
-```
-Laptop B (Browser / Client)
-       │
-       │ HTTP /api/chat
-       ▼
-Laptop A (FastAPI Backend, listening on 0.0.0.0:8000)
-       │
-       │ REST API with api-key header
-       ▼
-Microsoft Foundry Agent (Customer-Support-Agent)
-```
+Conversation history saved in the browser, with options to start or clear chats.
 
----
+Microsoft Foundry agent integration for customer support responses.
 
-## Laptop A Setup (Backend + Microsoft Foundry)
+Six fictional orders (ORD101–ORD106) for testing order scenarios.
 
-Laptop A is where the teammate runs the backend. It holds the `.env` file with Foundry credentials.
+Automatic rejection of unknown order IDs such as ORD107.
 
-### 1. Configure `.env`
-Ensure `.env` in `resolveai-foundry/` has:
-```env
-FOUNDRY_API_KEY=your-foundry-api-key
+Health check and interactive API documentation.
+
+How it works
+
+flowchart LR
+    A[Customer] --> B[Chat website]
+    B --> C[FastAPI backend]
+    C --> D[Order ID check]
+    D --> E[Microsoft Foundry agent]
+    E --> C
+    C --> B
+
+When a customer sends a message, the backend checks any order ID against the local demo data. If the ID does not exist, it returns an order-not-found message. Other messages go to the configured Microsoft Foundry agent, which returns a response to the chat. Support policies and agent instructions are configured in Microsoft Foundry.
+
+Tech stack
+
+Layer
+
+Technology
+
+Frontend
+
+HTML, CSS, JavaScript
+
+Backend
+
+Python, FastAPI
+
+AI agent
+
+Microsoft Foundry
+
+HTTP client
+
+HTTPX
+
+Demo data
+
+JSON
+
+Getting started
+
+Requirements
+
+Python 3.10 or newer
+
+A Microsoft Foundry project with a configured agent and API key
+
+1. Open the app folder
+
+After extracting the ZIP, open the inner resolveai-foundry folder in your terminal. It contains app.py, requirements.txt, and run.bat.
+
+2. Configure Microsoft Foundry
+
+Copy .env.example to a new file named .env in the same folder. Fill in your own values:
+
 FOUNDRY_PROJECT_ENDPOINT=https://<resource>.services.ai.azure.com/api/projects/<project>
-FOUNDRY_AGENT_NAME=Customer-Support-Agent
+FOUNDRY_AGENT_NAME=<your-agent-name>
+FOUNDRY_API_KEY=<your-api-key>
 REQUEST_TIMEOUT_SECONDS=90
-```
 
-### 2. Run the Server
-Open Command Prompt in `resolveai-foundry/` and run:
+Add your support instructions and policy knowledge to the agent in Microsoft Foundry. Keep .env private and never commit your API key.
 
-**Option A (Using run.bat):**
-```bat
-run.bat
-```
-*(This automatically installs dependencies and starts the server on localhost:8000)*
+3. Run the website
 
-**Option B (Manual command):**
-```bat
-py -m venv .venv
-.venv\Scripts\activate
-python -m pip install -r requirements.txt
-python -m uvicorn app:app --host localhost --port 8000
-```
+Windows (PowerShell):
 
-### 3. Find Laptop A's Local IP Address
-In Command Prompt on Laptop A, run:
-```bat
-ipconfig
-```
-Look for **IPv4 Address** under your active Wi-Fi adapter (for example: `192.168.1.45`).
+.\run.bat
 
----
+macOS / Linux:
 
-## Laptop B Setup (Frontend / Browser)
+sh run.sh
 
-Laptop B does **NOT** need Python, Azure CLI, `az login`, or any API keys!
+The startup script creates a Python virtual environment, installs dependencies, and starts the server. Open http://localhost:8000 in your browser.
 
-1. Make sure Laptop B is connected to the **same Wi-Fi network** as Laptop A.
-2. Open any web browser on Laptop B (Chrome, Edge, Safari, Firefox).
-3. Navigate to:
-   ```
-   http://<LAPTOP_A_IP>:8000
-   ```
-   *(Example: `http://192.168.1.45:8000`)*
-4. The ResolveAI customer support interface will load immediately, and the status indicator will show **Online**.
-5. Start chatting! Messages will flow through Laptop A to Microsoft Foundry and back.
+Try the demo
 
----
+Ask ResolveAI
 
-## Troubleshooting & Network Tips
+What it demonstrates
 
-- **Cannot connect from Laptop B?**
-  - Verify both laptops are connected to the same Wi-Fi.
-  - On Laptop A, make sure Windows Firewall allows Python/Uvicorn on port 8000 (if prompted by Windows Security Alert, click **Allow access** on Private networks).
-  - Test health check from Laptop B browser: `http://<LAPTOP_A_IP>:8000/api/health`. It should return `{"status":"ok","configured":true,...}`.
+What is the return policy?
 
-- **Custom Backend URL (if running frontend separately):**
-  - If you open `static/index.html` standalone on Laptop B, click the **Support agent** status in the bottom-left sidebar to enter Laptop A's IP address.
+A support question handled by the Foundry agent.
 
----
+Where is order ORD102?
 
-## Endpoints
+A recognized demo order ID.
 
-- Web App: `GET /`
-- Health check: `GET /api/health`
-- Chat API: `POST /api/chat`
+Where is order ORD107?
 
-Example chat request:
-```json
+An unknown ID rejected by the backend.
+
+The sample records are in static/orders (1).json. These are fictional orders for demonstration only.
+
+API endpoints
+
+Method
+
+Route
+
+Purpose
+
+GET
+
+/
+
+Open the website.
+
+GET
+
+/api/health
+
+Check whether the server is running and configured.
+
+POST
+
+/api/chat
+
+Send a message and receive the assistant's reply.
+
+GET
+
+/docs
+
+View interactive FastAPI documentation.
+
+Example request to /api/chat:
+
 {
-  "message": "Where is my order ORD101?",
+  "message": "What is the return policy?",
   "conversation_id": null
 }
-```
 
----
+The response contains answer and conversation_id. Send the returned conversation ID with the next message to continue the chat.
 
-## Security Note
+Project structure
 
-**Never commit `.env` to GitHub.** `.env` is included in `.gitignore` to protect your Microsoft Foundry API keys.
+resolveai-foundry/
+├── app.py                 # FastAPI backend and Foundry connection
+├── requirements.txt       # Python dependencies
+├── run.bat                # Windows startup
+├── run.sh                 # macOS/Linux startup
+├── .env.example           # Configuration template
+└── static/
+    ├── index.html         # Chat website
+    ├── app.js             # Chat and conversation history
+    ├── styles.css         # Website styling
+    └── orders (1).json    # Six fictional orders
+
+Current scope
+
+This version uses the JSON file to verify whether an order ID exists. It does not pass the matching order record to the Foundry agent or display an Orders page. Therefore, detailed answers about a valid order should not be treated as verified against the JSON file. The app has no MCP integration, customer login, or live order database.
+
+Troubleshooting
+
+The site says “Not Configured”: Check .env and restart the server.
+
+Foundry returns 401/403: Check your API key and project access.
+
+Foundry returns 404: Check your project endpoint and agent name.
+
+The script cannot be found: Run it from the inner resolveai-foundry folder.
+
+ResolveAI is a student project demonstrating how a customer support website can connect to a Microsoft Foundry AI agent.
 
 
